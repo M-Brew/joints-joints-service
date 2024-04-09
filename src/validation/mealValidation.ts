@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import { IMeal } from "interfaces";
 
 const mealValidation = (
@@ -12,10 +13,18 @@ const mealValidation = (
 
   if (!mealType || mealType.trim() === "") {
     errors.mealType = "meal type is required";
+  } else {
+    if (!isValidObjectId(mealType)) {
+      errors.mealType = "meal type should be valid id";
+    }
   }
 
   if (!menu || menu.trim() === "") {
     errors.menu = "menu is required";
+  } else {
+    if (!isValidObjectId(menu)) {
+      errors.menu = "menu should be valid id";
+    }
   }
 
   if (!price) {

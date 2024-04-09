@@ -1,18 +1,30 @@
 import { model, Schema } from "mongoose";
 
+const imageSchema = new Schema({
+  imageURL: String,
+  key: String
+})
+
 const mealSchema = new Schema(
   {
     name: String,
     description: String,
-    mealType: Schema.Types.ObjectId,
-    menu: Schema.Types.ObjectId,
+    mealType: {
+      type: Schema.Types.ObjectId,
+      ref: "MealType",
+    },
+    menu: {
+      type: Schema.Types.ObjectId,
+      ref: "Menu",
+    },
     price: Number,
     currency: {
       type: String,
       default: "cedi",
     },
-    images: [String],
+    image: imageSchema,
     createdBy: Schema.Types.ObjectId,
+    lastUpdatedBy: Schema.Types.ObjectId,
   },
   {
     timestamps: {

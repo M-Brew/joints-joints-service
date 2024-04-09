@@ -20,7 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
     if (existingJointType) {
       return res
         .status(400)
-        .json({ error: "joint type with name already exists" });
+        .json({ error: "Joint type with name already exists" });
     }
 
     const newJointType = new JointType({ ...payload, slug });
@@ -50,7 +50,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
     const jointType = await JointType.findById(id);
     if (!jointType) {
-      return res.status(404).json({ error: "joint type not found" });
+      return res.status(404).json({ error: "Joint type not found" });
     }
 
     return res.status(200).json(jointType);
@@ -67,13 +67,28 @@ router.patch("/:id", async (req: Request, res: Response) => {
 
     const jointType = await JointType.findById(id);
     if (!jointType) {
-      return res.status(404).json({ error: "joint type not found" });
+      return res.status(404).json({ error: "Joint type not found" });
     }
 
-    const updatedJointType = await JointType.findByIdAndUpdate(id, payload, {
-      new: true,
-      useFindAndModify: false,
+    const slug = slugify(payload.name);
+    const existingJointType = await JointType.findOne({
+      _id: { $ne: id },
+      slug,
     });
+    if (existingJointType) {
+      return res
+        .status(400)
+        .json({ error: "Joint type with name already exists" });
+    }
+
+    const updatedJointType = await JointType.findByIdAndUpdate(
+      id,
+      { name: payload.name, slug },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
 
     return res.status(200).json(updatedJointType);
   } catch (error) {
@@ -88,7 +103,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
 
     const jointType = await JointType.findById(id);
     if (!jointType) {
-      return res.status(404).json({ error: "joint type not found" });
+      return res.status(404).json({ error: "Joint type not found" });
     }
 
     await JointType.findByIdAndDelete(id);

@@ -2,10 +2,22 @@ import { model, Schema } from "mongoose";
 
 const menuSchema = new Schema(
   {
-    joint: Schema.Types.ObjectId,
-    menuType: Schema.Types.ObjectId,
-    meals: [Schema.Types.ObjectId],
+    joint: {
+      type: Schema.Types.ObjectId,
+      ref: "Joint",
+    },
+    menuType: {
+      type: Schema.Types.ObjectId,
+      ref: "MenuType",
+    },
+    meals: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Meal",
+      },
+    ],
     createdBy: Schema.Types.ObjectId,
+    lastUpdatedBy: Schema.Types.ObjectId,
   },
   {
     timestamps: {

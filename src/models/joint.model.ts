@@ -1,17 +1,37 @@
 import { model, Schema } from "mongoose";
 
+const imageSchema = new Schema({
+  imageURL: String,
+  key: String
+})
+
 const jointSchema = new Schema(
   {
     name: String,
+    slug: String,
     description: String,
-    type: [Schema.Types.ObjectId],
-    email: String,
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "JointType",
+      },
+    ],
     address: String,
-    images: [String],
-    location: String,
-    phoneNumber1: String,
-    phoneNumber2: String,
-    menu: [Schema.Types.ObjectId],
+    avatar: imageSchema,
+    gallery: [imageSchema],
+    latitude: Number,
+    longitude: Number,
+    phone: [String],
+    menu: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Menu",
+      },
+    ],
+    verified: {
+      type: Boolean,
+      default: false,
+    },
     createdBy: Schema.Types.ObjectId,
   },
   {

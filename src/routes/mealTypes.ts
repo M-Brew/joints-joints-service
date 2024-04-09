@@ -20,7 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
     if (existingMealType) {
       return res
         .status(400)
-        .json({ error: "meal type with name already exists" });
+        .json({ error: "Meal type with name already exists" });
     }
 
     const newMealType = new MealType({
@@ -28,7 +28,8 @@ router.post("/", async (req: Request, res: Response) => {
       slug,
       description: payload.description,
       count: 0,
-      createdBy: '65c36d10e6362330392db1d1'
+      createdBy: payload.createdBy,
+      lastUpdatedBy: payload.lastUpdatedBy
     });
     const mealType = await newMealType.save();
 
@@ -56,7 +57,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
     const mealType = await MealType.findById(id);
     if (!mealType) {
-      return res.status(404).json({ error: "meal type not found" });
+      return res.status(404).json({ error: "Meal type not found" });
     }
 
     return res.status(200).json(mealType);
@@ -73,7 +74,7 @@ router.patch("/:id", async (req: Request, res: Response) => {
 
     const mealType = await MealType.findById(id);
     if (!mealType) {
-      return res.status(404).json({ error: "meal type not found" });
+      return res.status(404).json({ error: "Meal type not found" });
     }
 
     const updatedMealType = await MealType.findByIdAndUpdate(id, payload, {
@@ -94,7 +95,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
 
     const mealType = await MealType.findById(id);
     if (!mealType) {
-      return res.status(404).json({ error: "meal type not found" });
+      return res.status(404).json({ error: "Meal type not found" });
     }
 
     await MealType.findByIdAndDelete(id);

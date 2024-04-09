@@ -20,7 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
     if (existingMenuType) {
       return res
         .status(400)
-        .json({ error: "menu type with name already exists" });
+        .json({ error: "Menu type with name already exists" });
     }
 
     const newMenuType = new MenuType({ ...payload, slug });
@@ -50,7 +50,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
     const menuType = await MenuType.findById(id);
     if (!menuType) {
-      return res.status(404).json({ error: "menu type not found" });
+      return res.status(404).json({ error: "Menu type not found" });
     }
 
     return res.status(200).json(menuType);
@@ -67,7 +67,7 @@ router.patch("/:id", async (req: Request, res: Response) => {
 
     const menuType = await MenuType.findById(id);
     if (!menuType) {
-      return res.status(404).json({ error: "menu type not found" });
+      return res.status(404).json({ error: "Menu type not found" });
     }
 
     const updatedMenuType = await MenuType.findByIdAndUpdate(id, payload, {
@@ -88,7 +88,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
 
     const menuType = await MenuType.findById(id);
     if (!menuType) {
-      return res.status(404).json({ error: "menu type not found" });
+      return res.status(404).json({ error: "Menu type not found" });
     }
 
     await MenuType.findByIdAndDelete(id);

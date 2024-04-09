@@ -21,3 +21,18 @@ export interface IMenu {
   meals?: string[];
   createdBy: string;
 }
+
+export interface IJoint {
+  name: string;
+  slug: string;
+  description?: string;
+  avatar?: string;
+  gallery?: string[];
+  type: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  phone?: string[];
+  menu?: string;
+  createdBy: string;
+}

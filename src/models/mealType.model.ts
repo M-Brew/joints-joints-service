@@ -10,6 +10,7 @@ const mealTypeSchema = new Schema(
       default: 0
     },
     createdBy: Schema.Types.ObjectId,
+    lastUpdatedBy: Schema.Types.ObjectId,
   },
   {
     timestamps: {

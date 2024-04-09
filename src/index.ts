@@ -7,6 +7,9 @@ dotenv.config();
 import mealTypeRoutes from "./routes/mealTypes";
 import menuTypeRoutes from "./routes/menuTypes";
 import jointTypeRoutes from "./routes/jointTypes";
+import jointRoutes from "./routes/joints";
+import menuRoutes from "./routes/menu";
+import mealRoutes from "./routes/meals";
 
 const { PORT, DB_URI } = process.env;
 
@@ -20,6 +23,9 @@ app.use(express.json());
 app.use("/api/meal-types", mealTypeRoutes);
 app.use("/api/menu-types", menuTypeRoutes);
 app.use("/api/joint-types", jointTypeRoutes);
+app.use("/api/joints", jointRoutes);
+app.use("/api/menu", menuRoutes);
+app.use("/api/meals", mealRoutes);
 
 mongoose.connect(DB_URI);
 mongoose.connection.on("open", () =>
